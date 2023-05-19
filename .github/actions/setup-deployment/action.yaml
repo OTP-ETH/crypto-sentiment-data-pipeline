@@ -78,7 +78,7 @@ runs:
           --param av_api_key="${{ inputs.av_api_key }}" \
           --param block_name="${{ inputs.prefect_block }}" \
           --param dataset_name="${{ inputs.dataset_name }}" \
-          --param bucket_name="$GCP-PROJECT-${{ inputs.bucket_name }}" \     
+          --param bucket_name="$GCP-PROJECT-${{ inputs.bucket_name }}" \
           --skip-upload \
           --apply \
           --version $GITHUB_SHA
