@@ -174,6 +174,7 @@ def get_market_data(
 
     # Send a GET request to the API endpoint and parse the JSON response
     url = f"https://api.coingecko.com/api/v3/coins/{coingecko_id}/market_chart/range"
+
     params = {
         "vs_currency": "usd",
         "from": datetime.combine(start_date, dt_time.min).timestamp(),
@@ -225,6 +226,9 @@ def get_market_data(
         for volume in data["total_volumes"]
     ]
 
+    if not prices_data or not market_caps_data or not volumes_data:
+        return None
+
     # Merge the three lists of dictionaries into a single dataframe
     market_data_df = pd.merge(
         pd.DataFrame(prices_data),
@@ -239,7 +243,7 @@ def get_market_data(
 
     market_data_df = market_data_df.astype(
         {
-            "date": "datetime64[ns]",
+            "date": "string",
             "price": "float64",
             "market_cap": "float64",
             "volume": "float64",
@@ -344,6 +348,9 @@ def process_market_data(
             )
         except Exception:
             print(f"Failed to get market data for {symbol}")
+            continue
+
+        if market_data_df is None:
             continue
 
         gcs_bucket.upload_from_dataframe(
