@@ -239,7 +239,7 @@ def get_market_data(
 
     market_data_df = market_data_df.astype(
         {
-            "date": "datetime64[ns]",
+            "date": "string",
             "price": "float64",
             "market_cap": "float64",
             "volume": "float64",
