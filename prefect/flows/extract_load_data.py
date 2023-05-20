@@ -251,7 +251,7 @@ def get_market_data(
     )
 
     market_data_df["symbol"] = symbol
-    market_data_df['date'] = market_data_df['date'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
+    market_data_df["date"] = market_data_df["date"].dt.strftime('%Y-%m-%d %H:%M:%S')
 
     # Send the extracted data to Prefect Cloud as an artifact
     create_table_artifact(
