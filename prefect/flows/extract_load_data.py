@@ -243,7 +243,7 @@ def get_market_data(
 
     market_data_df = market_data_df.astype(
         {
-            "date": "string",
+            "date": "datetime64[ns]",
             "price": "float64",
             "market_cap": "float64",
             "volume": "float64",
@@ -251,6 +251,7 @@ def get_market_data(
     )
 
     market_data_df["symbol"] = symbol
+    market_data_df['date'] = market_data_df['date'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
 
     # Send the extracted data to Prefect Cloud as an artifact
     create_table_artifact(
@@ -258,7 +259,7 @@ def get_market_data(
         table=market_data_df.to_dict(orient="list"),
         description="Market performance data",
     )
-
+    print("prices table created")
     return market_data_df
 
 
