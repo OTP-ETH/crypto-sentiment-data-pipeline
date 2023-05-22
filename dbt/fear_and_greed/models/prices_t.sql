@@ -14,7 +14,6 @@ FROM
     }}
 QUALIFY ROW_NUMBER() OVER (PARTITION BY symbol, TIMESTAMP_TRUNC(date, DAY) ORDER BY date DESC) = 1
     
-
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run

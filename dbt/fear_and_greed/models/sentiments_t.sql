@@ -45,7 +45,7 @@ SELECT
     t.name AS token_name,
     CAST(su.item.relevance_score AS FLOAT64) AS token_relevance_score,
     su.item.ticker_sentiment_label AS token_sentiment_label,
-    CAST(su.item.ticker_sentiment_score AS FLOAT64) AS token_sentiment_score,
+    CAST(su.item.ticker_sentiment_score AS FLOAT64) AS token_sentiment_score
 FROM
     sentiments_unnested AS su
     INNER JOIN tokens AS t
